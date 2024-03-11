@@ -3,7 +3,7 @@ project(paper_modeling)
 
 set(CMAKE_CXX_STANDARD 20)
 
-include_directories("/usr/include/nlohmann")
+include_directories("lib/nlohmann")
 
 find_package(nlohmann_json REQUIRED)
 

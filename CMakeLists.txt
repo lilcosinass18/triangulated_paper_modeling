@@ -5,8 +5,7 @@ set(CMAKE_CXX_STANDARD 20)
 
 add_subdirectory(src)
 
-include_directories("lib/eigen/")
-include_directories("/usr/include/nlohmann")
+include_directories("lib/nlohmann")
 
 find_package(nlohmann_json REQUIRED)
 
