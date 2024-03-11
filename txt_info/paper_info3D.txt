@@ -1,0 +1,20 @@
+Vertex: 2.8125 25.9375 -23.7294
+Vertex: 11.25 13.75 -21.433
+Vertex: 21.5625 22.1875 -14.5438
+Vertex: 13.125 34.375 -16.8402
+Vertex: 2.5 17.5 -18.3712
+Vertex: 3.75 31.25 -15.3093
+Vertex: 16.25 28.75 -9.18559
+Vertex: 15 15 -12.2474
+Edge: 0 4
+Edge: 4 1
+Edge: 3 5
+Edge: 5 0
+Edge: 2 6
+Edge: 6 3
+Edge: 1 7
+Edge: 7 2
+Crease: 4 5
+Crease: 5 6
+Crease: 6 7
+Crease: 7 4

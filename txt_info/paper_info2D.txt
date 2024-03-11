@@ -1,0 +1,20 @@
+Vertex: 0 0 0
+Vertex: 20 0 0
+Vertex: 20 20 0
+Vertex: 0 20 0
+Vertex: 10 0 0
+Vertex: 0 10 0
+Vertex: 10 20 0
+Vertex: 20 10 0
+Edge: 0 4
+Edge: 4 1
+Edge: 3 5
+Edge: 5 0
+Edge: 2 6
+Edge: 6 3
+Edge: 1 7
+Edge: 7 2
+Crease: 4 5
+Crease: 5 6
+Crease: 6 7
+Crease: 7 4
