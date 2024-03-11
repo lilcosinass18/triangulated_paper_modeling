@@ -9,6 +9,7 @@ include_directories("lib/nlohmann")
 
 find_package(nlohmann_json REQUIRED)
 
+
 add_executable(paper_modeling main.cpp)
 
 target_link_libraries(paper_modeling nlohmann_json::nlohmann_json)

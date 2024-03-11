@@ -5,6 +5,7 @@ set(CMAKE_CXX_STANDARD 20)
 
 include_directories("lib/nlohmann")
 
+
 find_package(nlohmann_json REQUIRED)
 
 add_library(paper geometry.hpp geometry.cpp paper.hpp paper.cpp utils.hpp utils.cpp)
