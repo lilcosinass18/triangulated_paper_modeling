@@ -1,2 +1,2 @@
-Всю информацию смотреть в отчете Deformation_modeling.pdf
+Всю информацию смотреть в отчете Deformation_modeling(1).pdf
 
