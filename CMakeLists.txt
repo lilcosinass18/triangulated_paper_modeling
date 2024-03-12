@@ -5,12 +5,11 @@ set(CMAKE_CXX_STANDARD 20)
 
 add_subdirectory(src)
 
-include_directories("lib/nlohmann")
+include_directories("lib/nlohmann/json")
 
-find_package(nlohmann_json REQUIRED)
+#find_package(nlohmann_json REQUIRED)
 
 
 add_executable(paper_modeling main.cpp)
 
-target_link_libraries(paper_modeling nlohmann_json::nlohmann_json)
 target_link_libraries(paper_modeling paper)
