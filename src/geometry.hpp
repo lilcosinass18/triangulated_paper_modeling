@@ -6,6 +6,7 @@
 #include <vector>
 #include <cstdlib>
 #include <cmath>
+#include "permution.hpp"
 
 /*! @brief Структура точка
  *
@@ -167,5 +168,11 @@ Point rotatePointAroundAxis(const Point &point,
                             const Point &lineStart,
                             const Point &lineEnd,
                             double angleDegrees);
+
+bool isPointsQuadrangle(int a, int b, int c, int d, std::vector<std::pair<int, int>> edges);
+
+bool isPointsPentagon(int a, int b, int c, int d, int e, std::vector<std::pair<int, int>> edges);
+
+bool isPointsHexagon(int a, int b, int c, int d, int e, int f,std::vector<std::pair<int, int>> edges);
 
 #endif //PAPER_MODELING_GEOMETRY_HPP

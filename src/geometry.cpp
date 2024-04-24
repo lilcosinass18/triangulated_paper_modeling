@@ -135,3 +135,155 @@ Point rotatePointAroundAxis(const Point &point,
     // Возвращаем новую точку, возвращая начало координат на место
     return Point(newX + lineStart.x, newY + lineStart.y, newZ + lineStart.z);
 }
+
+int transpositionForQuadrangle(int a, int b, int c, int d, std::vector<std::pair<int, int>> edges) {
+    int count = 0;
+    for (auto& edge : edges) {
+        // первая из возможных конфигураций
+        if ((edge.first == a && edge.second == b) || (edge.first == b && edge.second == a)
+            || (edge.first == a && edge.second == d) || (edge.first == d && edge.second == a)
+            || (edge.first == b && edge.second == c) || (edge.first == c && edge.second == b)
+            || (edge.first == c && edge.second == d) || (edge.first == d && edge.second == c)) {
+            ++count;
+        } else if ((edge.first == a && edge.second == c) || (edge.first == c && edge.second == a)
+                   || (edge.first == b && edge.second == d) || (edge.first == d && edge.second == b)) {
+            --count;
+        }
+    }
+    return count;
+}
+
+int transpositionForPentagon(int a, int b, int c, int d, int e,std::vector<std::pair<int, int>> edges) {
+    int count = 0;
+    for (auto& edge : edges) {
+        // первая из возможных конфигураций
+        if ((edge.first == a && edge.second == b) || (edge.first == b && edge.second == a)
+            || (edge.first == a && edge.second == e) || (edge.first == e && edge.second == a)
+            || (edge.first == b && edge.second == c) || (edge.first == c && edge.second == b)
+            || (edge.first == c && edge.second == d) || (edge.first == d && edge.second == c)
+            || (edge.first == d && edge.second == e) || (edge.first == e && edge.second == d)) {
+            ++count;
+        } else if ((edge.first == a && edge.second == d) || (edge.first == d && edge.second == a)
+                   || (edge.first == a && edge.second == c) || (edge.first == c && edge.second == a)
+                   || (edge.first == b && edge.second == e) || (edge.first == e && edge.second == b)
+                   || (edge.first == c && edge.second == e) || (edge.first == e && edge.second == c)
+                   || (edge.first == b && edge.second == d) || (edge.first == d && edge.second == b)) {
+            --count;
+        }
+    }
+    return count;
+}
+
+int transpositionForHexagon(int a, int b, int c, int d, int e, int f, std::vector<std::pair<int, int>> edges) {
+    int count = 0;
+    for (auto& edge : edges) {
+        // первая из возможных конфигураций
+        if ((edge.first == a && edge.second == b) || (edge.first == b && edge.second == a)
+            || (edge.first == a && edge.second == f) || (edge.first == f && edge.second == a)
+            || (edge.first == b && edge.second == c) || (edge.first == c && edge.second == b)
+            || (edge.first == c && edge.second == d) || (edge.first == d && edge.second == c)
+            || (edge.first == d && edge.second == e) || (edge.first == e && edge.second == d)
+            || (edge.first == f && edge.second == e) || (edge.first == e && edge.second == f)) {
+            ++count;
+        } else if ((edge.first == a && edge.second == d) || (edge.first == d && edge.second == a)
+                   || (edge.first == a && edge.second == c) || (edge.first == c && edge.second == a)
+                   || (edge.first == a && edge.second == e) || (edge.first == e && edge.second == a)
+                   || (edge.first == b && edge.second == e) || (edge.first == e && edge.second == b)
+                   || (edge.first == b && edge.second == f) || (edge.first == f && edge.second == b)
+                   || (edge.first == b && edge.second == d) || (edge.first == d && edge.second == b)
+                   || (edge.first == c && edge.second == e) || (edge.first == e && edge.second == c)
+                   || (edge.first == f && edge.second == c) || (edge.first == c && edge.second == f)
+                   || (edge.first == f && edge.second == d) || (edge.first == d && edge.second == f)) {
+            --count;
+        }
+    }
+    return count;
+}
+
+int factorial(int n) {
+    int result = 1;
+    for (unsigned int i = 1; i <= n; ++i) {
+        result *= i;
+    }
+    return result;
+}
+
+bool isPointsQuadrangle (int a, int b, int c, int d, std::vector<std::pair<int, int>> edges) {
+    std::vector<int> vertices = {a, b, c, d};
+
+    int n = vertices.size();
+    std::vector<int> count(factorial(n - 1) / 2, 0);
+
+    std::vector<std::vector<int>> permutions = generatePermutations(vertices);
+    int i = 0;
+    for (const auto& permution : permutions) {
+        count[i] = transpositionForQuadrangle(permution[0], permution[1], permution[2], permution[3], edges);
+        ++i;
+    }
+
+    int result = 0;
+    for (const auto& tmp : count) {
+        if (tmp == 4) {
+            ++result;
+        }
+    }
+    if (result == 1) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+bool isPointsPentagon (int a, int b, int c, int d, int e, std::vector<std::pair<int, int>> edges) {
+    std::vector<int> vertices = {a, b, c, d, e};
+
+    int n = vertices.size();
+    std::vector<int> count(factorial(n - 1) / 2, 0);
+
+    std::vector<std::vector<int>> permutions = generatePermutations(vertices);
+    int i = 0;
+    for (const auto& permution : permutions) {
+        count[i] = transpositionForPentagon(permution[0], permution[1], permution[2], permution[3], permution[4], edges);
+        ++i;
+    }
+
+    int result = 0;
+    for (const auto& tmp : count) {
+        if (tmp == 5) {
+            ++result;
+        }
+    }
+    if (result == 1) {
+        return true;
+    } else {
+        return false;
+    }
+
+}
+
+bool isPointsHexagon(int a, int b, int c, int d, int e, int f,std::vector<std::pair<int, int>> edges) {
+    std::vector<int> vertices = {a, b, c, d, e, f};
+
+    int n = vertices.size();
+    std::vector<int> count(factorial(n - 1) / 2, 0);
+
+    std::vector<std::vector<int>> permutions = generatePermutations(vertices);
+    int i = 0;
+    for (const auto& permution : permutions) {
+        count[i] = transpositionForHexagon(permution[0], permution[1], permution[2], permution[3], permution[4], permution[5], edges);
+        ++i;
+    }
+
+    int result = 0;
+    for (const auto& tmp : count) {
+        if (tmp == 6) {
+            ++result;
+        }
+    }
+    if (result == 1) {
+        return true;
+    } else {
+        std::cout << "we not find it!" << std::endl;
+        return false;
+    }
+}

@@ -1,20 +1,53 @@
 Vertex: 0 0 0
 Vertex: 20 0 0
-Vertex: 20 20 0
-Vertex: 0 20 0
+Vertex: 20 8 0
+Vertex: 0 8 0
+Vertex: 2 0 0
+Vertex: 2 8 0
+Vertex: 4 0 0
+Vertex: 4 8 0
+Vertex: 6 0 0
+Vertex: 6 8 0
+Vertex: 8 0 0
+Vertex: 8 8 0
 Vertex: 10 0 0
-Vertex: 0 10 0
-Vertex: 10 20 0
-Vertex: 20 10 0
+Vertex: 10 8 0
+Vertex: 12 0 0
+Vertex: 12 8 0
+Vertex: 14 0 0
+Vertex: 14 8 0
+Vertex: 16 0 0
+Vertex: 16 8 0
+Vertex: 18 0 0
+Vertex: 18 8 0
+Edge: 1 2
+Edge: 3 0
 Edge: 0 4
-Edge: 4 1
-Edge: 3 5
-Edge: 5 0
-Edge: 2 6
-Edge: 6 3
-Edge: 1 7
-Edge: 7 2
+Edge: 5 3
+Edge: 4 6
+Edge: 7 5
+Edge: 6 8
+Edge: 9 7
+Edge: 8 10
+Edge: 11 9
+Edge: 10 12
+Edge: 13 11
+Edge: 12 14
+Edge: 15 13
+Edge: 14 16
+Edge: 17 15
+Edge: 16 18
+Edge: 19 17
+Edge: 18 20
+Edge: 20 1
+Edge: 2 21
+Edge: 21 19
 Crease: 4 5
-Crease: 5 6
 Crease: 6 7
-Crease: 7 4
+Crease: 8 9
+Crease: 10 11
+Crease: 12 13
+Crease: 14 15
+Crease: 16 17
+Crease: 18 19
+Crease: 20 21

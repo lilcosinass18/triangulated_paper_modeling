@@ -122,6 +122,26 @@ bool Paper::checkPointsOnEdge(const Point &lineStart, const Point &lineEnd) {
     return false; // Точки не лежат на одом ребре
 }
 
+// Для проверки принадлежности lineStart и lineEnd к одному из рёбер
+bool Paper::checkPointsOnEdgeAndCrease(const Point &lineStart, const Point &lineEnd) {
+    std::vector<std::pair<int, int>> allEdges;
+    for (const auto& edge : edges) {
+        allEdges.push_back(edge);
+    }
+    for (const auto& crease : creases) {
+        allEdges.push_back(crease);
+    }
+    for (const auto &edge : allEdges) {
+        const Point &edgeStart = vertices[edge.first];
+        const Point &edgeEnd = vertices[edge.second];
+
+        if (isPointOnEdge(lineStart, edgeStart, edgeEnd) && isPointOnEdge(lineEnd, edgeStart, edgeEnd)) {
+            return true; // Если точки лежат на одном из ребер
+        }
+    }
+    return false; // Точки не лежат на одом ребре
+}
+
 
 void Paper::addCrease(const Point &start, const Point &end) {
     // проверка на то, что вершины принадлежат ребрам
@@ -262,6 +282,117 @@ void Paper::writePaperToFile(const std::string& filename) {
     }
 }
 
+std::vector<std::vector<int>> Paper::findQuadrangles() {
+    std::vector<std::pair<int, int>> allEdges;
+    for (const auto& edge : edges) {
+        allEdges.push_back(edge);
+    }
+    for (const auto& crease : creases) {
+        allEdges.push_back(crease);
+    }
+    std::vector<std::vector<int>> candidateQuadrangles;
+    for (int i = 0; i < vertices.size() - 3; ++i) {
+        for (int j = i + 1; j < vertices.size() - 2; ++j) {
+            for (int k = j + 1; k < vertices.size() - 1; ++k) {
+                for (int l = k + 1; l < vertices.size(); ++l) {
+                    candidateQuadrangles.push_back({i, j, k, l});
+                }
+            }
+        }
+    }
+
+    std::vector<std::vector<int>> quadrangles;
+    for (const auto& candidate : candidateQuadrangles) {
+        if (isPointsQuadrangle(candidate[0], candidate[1], candidate[2], candidate[3], allEdges)) {
+            quadrangles.push_back(candidate);
+        }
+    }
+    return quadrangles;
+}
+
+std::vector<std::vector<int>> Paper::findPentagons() {
+    std::vector<std::pair<int, int>> allEdges;
+    for (const auto& edge : edges) {
+        allEdges.push_back(edge);
+    }
+    for (const auto& crease : creases) {
+        allEdges.push_back(crease);
+    }
+    std::vector<std::vector<int>> candidatePentagons;
+    for (int i = 0; i < vertices.size() - 4; ++i) {
+        for (int j = i + 1; j < vertices.size() - 3; ++j) {
+            for (int k = j + 1; k < vertices.size() - 2; ++k) {
+                for (int l = k + 1; l < vertices.size() - 1; ++l) {
+                    for (int m = l + 1; m < vertices.size(); ++m) {
+                        candidatePentagons.push_back({i, j, k, l, m});
+                    }
+                }
+            }
+        }
+    }
+    std::vector<std::vector<int>> pentagons;
+    for (const auto& candidate : candidatePentagons) {
+        if (isPointsPentagon(candidate[0], candidate[1], candidate[2], candidate[3], candidate[4], allEdges)) {
+            pentagons.push_back(candidate);
+        }
+    }
+    return pentagons;
+}
+
+std::vector<std::vector<int>> Paper::findHexagons() {
+    std::vector<std::pair<int, int>> allEdges;
+    for (const auto& edge : edges) {
+        allEdges.push_back(edge);
+    }
+    for (const auto& crease : creases) {
+        allEdges.push_back(crease);
+    }
+    std::vector<std::vector<int>> candidateHexagons;
+    for (int i = 0; i < vertices.size() - 5; ++i) {
+        for (int j = i + 1; j < vertices.size() - 4; ++j) {
+            for (int k = j + 1; k < vertices.size() - 3; ++k) {
+                for (int l = k + 1; l < vertices.size() - 2; ++l) {
+                    for (int m = l + 1; m < vertices.size() - 1; ++m) {
+                        for (int n = m + 1; n < vertices.size(); ++n) {
+                            candidateHexagons.push_back({i, j, k, l, m, n});
+                        }
+                    }
+                }
+            }
+        }
+    }
+    std::vector<std::vector<int>> hexagons;
+    for (const auto& candidate : candidateHexagons) {
+        if (isPointsHexagon(candidate[0], candidate[1], candidate[2], candidate[3], candidate[4], candidate[5], allEdges)) {
+            hexagons.push_back(candidate);
+        }
+    }
+    return hexagons;
+}
+
+std::vector<int> Paper::findOppositeIndices(std::vector<int> indices, int startIndex) {
+    std::vector<int> oppositeIndices;
+    for (const auto& index : indices) {
+        if (index != startIndex) {
+            if (!checkPointsOnEdgeAndCrease(vertices[startIndex], vertices[index])) {
+                oppositeIndices.push_back(index);
+            }
+        }
+    }
+    return oppositeIndices;
+}
+
+void Paper::triangulate(std::vector<std::vector<int>> triangulatedArea) {
+    for (const auto& area : triangulatedArea) {
+        int startIndex = area[0];
+        std::vector<int> oppositeIndices = findOppositeIndices(area, startIndex);
+        for (const auto& oppositeIndex : oppositeIndices) {
+            addEdge(startIndex, oppositeIndex);
+        }
+    }
+}
+
+
 void processPaperFromJson(const std::string& filename) {
     // Открываем JSON файл
     std::ifstream file(filename);
@@ -320,6 +451,14 @@ void processPaperFromJson(const std::string& filename) {
     for (int i = 0; i < angles.size(); ++i) {
         paper.rotateVertices(i, 0 ,angles[i]);
     }
+
+    std::vector<std::vector<int>> quadrangles = paper.findQuadrangles();
+    std::vector<std::vector<int>> pentagons = paper.findPentagons();
+    std::vector<std::vector<int>> hexagons = paper.findHexagons();
+
+    paper.triangulate(quadrangles);
+    paper.triangulate(pentagons);
+    paper.triangulate(hexagons);
 
     // Записываем результат в файл
     paper.writePaperToFile("../txt_info/paper_info3D.txt");

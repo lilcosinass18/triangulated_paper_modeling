@@ -26,6 +26,12 @@ public:
     void rotateVertices(int indexCrease, int indexVertex, double angleDegrees);
     void writePaperToFile(const std::string& filename);
 
+    std::vector<std::vector<int>> findQuadrangles();
+    std::vector<std::vector<int>> findPentagons();
+    std::vector<std::vector<int>> findHexagons();
+
+    void triangulate(std::vector<std::vector<int>> triangulatedArea);
+
 private:
     void addEdge(int startIdx, int endIdx);
     bool creaseIntersection(std::pair<int, int> firstCrease, std::pair<int, int> secondCrease);
@@ -33,6 +39,8 @@ private:
     std::vector<Point> pointsNeedToRotate(const int indexStart, const int indexEnd, const int index);
     bool pointOnEdges(const Point &point);
     bool checkPointsOnEdge(const Point &lineStart, const Point &lineEnd);
+    bool checkPointsOnEdgeAndCrease(const Point &lineStart, const Point &lineEnd);
+    std::vector<int> findOppositeIndices(std::vector<int> indices, int startIndex);
 
 
     std::vector<Point> vertices;
