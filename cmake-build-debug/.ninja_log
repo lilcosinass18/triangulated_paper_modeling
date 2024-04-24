@@ -1,8 +1,0 @@
-# ninja log v5
-1	1756	1713981300868802496	CMakeFiles/paper_modeling.dir/main.cpp.o	a1bcbe6d440bc07a
-3655	3817	1713982473427068105	paper_modeling	ec324e93c95bf641
-3614	3655	1713982473267071887	src/libpaper.a	70aec029a06bad71
-2	1846	1713953833345930730	src/CMakeFiles/paper.dir/utils.cpp.o	54aeeed386d99dab
-2	929	1713953832425927398	src/CMakeFiles/paper.dir/permution.cpp.o	a61a94d366b0932b
-1	3614	1713982473223072927	src/CMakeFiles/paper.dir/paper.cpp.o	fcbbcfbc2c2dab7c
-0	812	1713982107634204988	src/CMakeFiles/paper.dir/geometry.cpp.o	f1017eb7308be7d4

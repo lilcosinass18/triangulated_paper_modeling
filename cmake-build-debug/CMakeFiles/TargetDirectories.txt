@@ -1,6 +1,0 @@
-/home/big/github_prj/paper_modeling/cmake-build-debug/CMakeFiles/paper_modeling.dir
-/home/big/github_prj/paper_modeling/cmake-build-debug/CMakeFiles/edit_cache.dir
-/home/big/github_prj/paper_modeling/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-/home/big/github_prj/paper_modeling/cmake-build-debug/src/CMakeFiles/paper.dir
-/home/big/github_prj/paper_modeling/cmake-build-debug/src/CMakeFiles/edit_cache.dir
-/home/big/github_prj/paper_modeling/cmake-build-debug/src/CMakeFiles/rebuild_cache.dir
